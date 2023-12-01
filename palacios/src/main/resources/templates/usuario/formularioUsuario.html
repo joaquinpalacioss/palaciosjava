@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="text-center">
+<h2>Formulario de Usuario</h2>
+<form th:object="${usuario}" th:action="${usuario.idUsuario} ? @{'/usuarios/editar/' + ${usuario.idUsuario}} : @{'/usuarios/crear'}" method="post">
+    <label>Nombre: <input type="text" th:field="*{nombre}"  class="form-control"/></label><br />
+    <label>Apellido: <input type="text" th:field="*{apellido}"  class="form-control"/></label><br />
+    <label>DNI: <input type="text" th:field="*{dni}" class="form-control" /></label><br />
+    <label>Fecha Registro: <input type="date" th:field="*{fechaRegistro}" class="form-control"/></label><br />
+    <div class=" mt-4">
+    <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+</form>
+</div>
+<div class="mt-4 text-center">
+<a th:href="@{/usuarios}" class="btn btn-warning">Volver a la lista de Usuarios</a>
+</div>
+</body>
+</html>

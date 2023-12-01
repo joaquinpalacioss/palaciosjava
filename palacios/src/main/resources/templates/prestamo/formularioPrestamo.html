@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Préstamo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="text-center">
+  <h2>Formulario de Préstamo</h2>
+  <form th:object="${prestamo}" th:action="${prestamo.idPrestamo} ? @{'/prestamos/editar/' + ${prestamo.idPrestamo}} : @{'/prestamos/crear'}" method="post" class="formulario-prestamo" onsubmit="return validarFechas();">
+    <!-- Campos del formulario -->
+    <label>Fecha Préstamo: <input type="date" th:field="*{fechaPrestamo}" class="form-control" /></label><br />
+    <label>Fecha Devolución: <input type="date" th:field="*{fechaDevolucion}" class="form-control" /></label><br />
+    <!-- Nuevo campo desplegable para seleccionar el estado -->
+    <label>Estado:
+      <select th:field="*{estado}" class="form-control">
+        <option value="Entregado" th:selected="${prestamo.estado == 'Entregado'}">Entregado</option>
+        <option value="Recibido" th:selected="${prestamo.estado == 'Recibido'}">Recibido</option>
+      </select>
+    </label><br />
+
+    <!-- Nuevo campo desplegable para seleccionar película por título -->
+    <label>Seleccionar Película:
+      <select id="peliculaIdSelect" onchange="actualizarCamposPelicula()" th:field="*{pelicula.idPelicula}" class="form-control">
+        <option th:each="pelicula : ${peliculas}"
+                th:value="${pelicula.idPelicula}"
+                th:text="${pelicula.titulo}"
+                th:selected="${pelicula.idPelicula == selectedPelicula}">
+        </option>
+      </select>
+    </label><br />
+
+    <!-- Campo de texto para el ID de la película (se enviará al guardar) -->
+    <label>ID Película: <input type="text" id="idPelicula" th:field="*{pelicula.idPelicula}" class="form-control" readonly="readonly" /></label><br />
+
+    <!-- Nuevo campo desplegable para seleccionar usuario por nombre y DNI -->
+    <label>Seleccionar Usuario:
+      <select id="usuarioIdSelect" onchange="actualizarCamposUsuario()" th:field="*{usuario.idUsuario}" class="form-control">
+        <option th:each="usuario : ${usuarios}"
+                th:value="${usuario.idUsuario}"
+                th:text="${usuario.nombre + ' - ' + usuario.dni}"
+                th:selected="${usuario.idUsuario == selectedUsuario}">
+        </option>
+      </select>
+    </label><br />
+
+    <!-- Campo de texto para el ID del usuario (se enviará al guardar) -->
+    <label>ID Usuario: <input type="text" id="idUsuario" th:field="*{usuario.idUsuario}" class="form-control" readonly="readonly" /></label><br />
+
+    <!-- Manejo de errores -->
+    <div th:if="${#fields.hasErrors('*')}">
+      <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>
+    </div>
+
+    <!-- Botón de guardar -->
+    <div class=" mt-4">
+      <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+  </form>
+</div>
+<div class="mt-4 text-center">
+<a th:href="@{/prestamos}" class="btn btn-warning">Volver a la lista de Préstamos</a>
+</div>
+<!-- Script JavaScript -->
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  function actualizarCamposPelicula() {
+    var select = document.getElementById("peliculaIdSelect");
+    var idPeliculaInput = document.getElementById("idPelicula");
+
+    // Obtener el valor seleccionado
+    var selectedOption = select.options[select.selectedIndex];
+    var idPelicula = selectedOption.value;
+
+    // Actualizar el campo de texto con el ID de la película
+    idPeliculaInput.value = idPelicula;
+  }
+
+  function actualizarCamposUsuario() {
+    var select = document.getElementById("usuarioIdSelect");
+    var idUsuarioInput = document.getElementById("idUsuario");
+
+    // Obtener el valor seleccionado
+    var selectedOption = select.options[select.selectedIndex];
+    var idUsuario = selectedOption.value;
+
+    // Actualizar el campo de texto con el ID del usuario
+    idUsuarioInput.value = idUsuario;
+  }
+
+function validarFechas() {
+    var fechaPrestamo = new Date(document.getElementById("fechaPrestamo").value);
+    var fechaDevolucion = new Date(document.getElementById("fechaDevolucion").value);
+
+    if (fechaDevolucion < fechaPrestamo) {
+      alert("La fecha de devolución no puede ser menor que la fecha de préstamo.");
+      return false;
+    }
+    return true;
+  }
+  /*]]>*/
+</script>
+
+</body>
+</html>
