@@ -11,13 +11,13 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank
     private String nombre;
-    @NotBlank(message = "El apellido no puede estar vacío")
+    @NotBlank
     private String apellido;
-    @NotNull(message = "El dni no puede estar vacío")
+    @NotNull
     private int dni;
-    @NotBlank(message = "La fecha no puede estar vacía")
+    @NotBlank
     private String fechaRegistro;
 
     public Long getIdUsuario() {

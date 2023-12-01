@@ -9,10 +9,10 @@
 <div class="text-center">
   <h2>Formulario de Préstamo</h2>
   <form th:object="${prestamo}" th:action="${prestamo.idPrestamo} ? @{'/prestamos/editar/' + ${prestamo.idPrestamo}} : @{'/prestamos/crear'}" method="post" class="formulario-prestamo" onsubmit="return validarFechas();">
-    <!-- Campos del formulario -->
+
     <label>Fecha Préstamo: <input type="date" th:field="*{fechaPrestamo}" class="form-control" /></label><br />
     <label>Fecha Devolución: <input type="date" th:field="*{fechaDevolucion}" class="form-control" /></label><br />
-    <!-- Nuevo campo desplegable para seleccionar el estado -->
+
     <label>Estado:
       <select th:field="*{estado}" class="form-control">
         <option value="Entregado" th:selected="${prestamo.estado == 'Entregado'}">Entregado</option>
@@ -20,7 +20,7 @@
       </select>
     </label><br />
 
-    <!-- Nuevo campo desplegable para seleccionar película por título -->
+    <!--   película por título -->
     <label>Seleccionar Película:
       <select id="peliculaIdSelect" onchange="actualizarCamposPelicula()" th:field="*{pelicula.idPelicula}" class="form-control">
         <option th:each="pelicula : ${peliculas}"
@@ -31,10 +31,10 @@
       </select>
     </label><br />
 
-    <!-- Campo de texto para el ID de la película (se enviará al guardar) -->
+    <!-- texto ID de la película  -->
     <label>ID Película: <input type="text" id="idPelicula" th:field="*{pelicula.idPelicula}" class="form-control" readonly="readonly" /></label><br />
 
-    <!-- Nuevo campo desplegable para seleccionar usuario por nombre y DNI -->
+    <!--  usuario por nombre y DNI -->
     <label>Seleccionar Usuario:
       <select id="usuarioIdSelect" onchange="actualizarCamposUsuario()" th:field="*{usuario.idUsuario}" class="form-control">
         <option th:each="usuario : ${usuarios}"
@@ -45,15 +45,15 @@
       </select>
     </label><br />
 
-    <!-- Campo de texto para el ID del usuario (se enviará al guardar) -->
+    <!-- ID del usuario  -->
     <label>ID Usuario: <input type="text" id="idUsuario" th:field="*{usuario.idUsuario}" class="form-control" readonly="readonly" /></label><br />
 
-    <!-- Manejo de errores -->
+    <!-- errores -->
     <div th:if="${#fields.hasErrors('*')}">
       <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>
     </div>
 
-    <!-- Botón de guardar -->
+
     <div class=" mt-4">
       <input type="submit" value="Guardar" class="btn btn-primary" />
     </div>
@@ -62,7 +62,7 @@
 <div class="mt-4 text-center">
 <a th:href="@{/prestamos}" class="btn btn-warning">Volver a la lista de Préstamos</a>
 </div>
-<!-- Script JavaScript -->
+<!--  JavaScript -->
 <script th:inline="javascript">
   /*<![CDATA[*/
   function actualizarCamposPelicula() {

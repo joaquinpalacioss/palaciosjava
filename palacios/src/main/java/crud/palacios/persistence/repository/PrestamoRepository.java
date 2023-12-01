@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
-    // Puedes agregar consultas personalizadas si es necesario
+
 }

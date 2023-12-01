@@ -29,7 +29,7 @@ public class PrestamoController {
     @GetMapping("/crear")
     public String mostrarFormularioPrestamo(Model model) {
         model.addAttribute("prestamo", new Prestamo());
-        model.addAttribute("peliculas", peliculaService.getAllPeliculas());  // Asegúrate de tener el servicio de películas disponible
+        model.addAttribute("peliculas", peliculaService.getAllPeliculas());
         model.addAttribute("usuarios",usuarioService.getAllUsuarios());
         return "prestamo/formularioPrestamo";
     }
@@ -66,7 +66,7 @@ public class PrestamoController {
             model.addAttribute("peliculas", peliculaService.getAllPeliculas());
             model.addAttribute("usuarios", usuarioService.getAllUsuarios());
 
-            // Además, es posible que necesites establecer valores iniciales para los campos seleccionados
+
             model.addAttribute("selectedPelicula", prestamo.getPelicula().getIdPelicula());
             model.addAttribute("selectedUsuario", prestamo.getUsuario().getIdUsuario());
         }

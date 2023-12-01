@@ -10,13 +10,13 @@ public class Pelicula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPelicula;
 
-    @NotBlank(message = "El título no puede estar vacío")
+    @NotBlank
     private String titulo;
-    @NotBlank(message = "El director no puede estar vacío")
+    @NotBlank
     private String director;
-    @NotNull(message = "El año no puede estar vacío")
+    @NotNull
     private int fechaEstreno;
-    @NotBlank(message = "El genero no puede estar vacío")
+    @NotBlank
     private String genero;
 
     public Long getIdPelicula() {

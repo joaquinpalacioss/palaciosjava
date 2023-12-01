@@ -14,18 +14,18 @@ public class Prestamo {
 
     @ManyToOne
     @JoinColumn(name = "idPelicula")
-    @NotNull(message = "El campo pelicula no puede estar vacío")
+    @NotNull
     private Pelicula pelicula;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
-    @NotNull(message = "El campo usuario no puede estar vacío")
+    @NotNull
     private Usuario usuario;
 
     private String fechaPrestamo;
 
     private String fechaDevolucion;
-    @NotBlank(message = "El campo estado no puede estar vacío")
+    @NotBlank
     private String estado;
 
     public Long getIdPrestamo() {
